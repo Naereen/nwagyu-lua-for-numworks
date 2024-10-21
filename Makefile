@@ -1,6 +1,6 @@
 Q ?= @
 CC = arm-none-eabi-gcc
-NWLINK = npx --yes -- nwlink@0.0.15
+NWLINK = npx --yes -- nwlink
 LINK_GC = 1
 LTO = 1
 
@@ -77,15 +77,18 @@ check: output/lua.bin
 .PHONY: run
 run: output/lua.nwa src/test.lua
 	@echo "INSTALL $<"
-	$(Q) $(NWLINK) install-nwa --external-data src/test.lua $<
+# $(Q) $(NWLINK) install-nwa --external-data src/test.lua $<
+	$(Q) $(NWLINK) install-nwa $<
 
 output/%.bin: output/%.nwa src/test.lua
 	@echo "BIN     $@"
-	$(Q) $(NWLINK) nwa-bin --external-data src/test.lua $< $@
+# $(Q) $(NWLINK) nwa-bin --external-data src/test.lua $< $@
+	$(Q) $(NWLINK) nwa-bin $< $@
 
 output/%.elf: output/%.nwa src/test.lua
 	@echo "ELF     $@"
-	$(Q) $(NWLINK) nwa-elf --external-data src/test.lua $< $@
+# $(Q) $(NWLINK) nwa-elf --external-data src/test.lua $< $@
+	$(Q) $(NWLINK) nwa-elf $< $@
 
 output/lua.nwa: $(objs)
 	@echo "LD      $@"

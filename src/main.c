@@ -4,7 +4,7 @@
 #include <eadk.h>
 #include "eadk_lib.h"
 
-const char eadk_app_name[] __attribute__((section(".rodata.eadk_app_name"))) = "Lua";
+const char eadk_app_name[] __attribute__((section(".rodata.eadk_app_name"))) = "Lua interpreter";
 const uint32_t eadk_api_level  __attribute__((section(".rodata.eadk_api_level"))) = 0;
 
 // TODO: Check why __exidx_start/__exidx_end is needed
@@ -16,7 +16,9 @@ int main(int argc, char ** argv) {
   luaL_openlibs(L);
   load_eadk_lib(L);
 
-  char * code = eadk_external_data;
+  // TODO: decide if I want to depend on an external data or not
+  // char * code = eadk_external_data;
+  char * code = "print(\"Printed from a string interpreted by Lua\")";
 
   if (luaL_loadstring(L, code) == LUA_OK) {
     if (lua_pcall(L, 0, 0, 0) == LUA_OK) {
@@ -27,6 +29,7 @@ int main(int argc, char ** argv) {
     }
   }
 
+  eadk_timing_msleep(5000);
   lua_close(L);
   return 0;
 }
