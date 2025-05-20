@@ -1,3 +1,4 @@
+#include "crt_stubs.h"
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
@@ -11,14 +12,15 @@ const uint32_t eadk_api_level  __attribute__((section(".rodata.eadk_api_level"))
 void __exidx_start() { }
 void __exidx_end() { }
 
-int main(int argc, char ** argv) {
+// int main(int argc, char ** argv) {
+int main() {
   lua_State * L = luaL_newstate();
   luaL_openlibs(L);
   load_eadk_lib(L);
 
   // TODO: decide if I want to depend on an external data or not
-  // char * code = eadk_external_data;
-  char * code = "print(\"Printed from a string interpreted by Lua\")";
+  // const char * code = eadk_external_data;
+  const char * code = "print(\"Printed from a string interpreted by Lua\")";
 
   if (luaL_loadstring(L, code) == LUA_OK) {
     if (lua_pcall(L, 0, 0, 0) == LUA_OK) {

@@ -1,4 +1,4 @@
-while true do
+for j=1,20 do
   for i=1,10 do
     eadk.display_draw_string("Hello", math.sqrt(10*i), 10*i)
   end

@@ -1,3 +1,9 @@
+#
+# GNU Makefile for the Lua (NWA) app for the Numwoks calculators
+#
+# See https://github.com/Naereen/nwagyu-lua-for-numworks
+# See https://yaya-cout.github.io/Nwagyu/guide/apps/lua.html
+#
 Q ?= @
 CC = arm-none-eabi-gcc
 NWLINK = npx --yes -- nwlink
@@ -41,19 +47,25 @@ objs = $(addprefix output/lua/,\
 
 objs += $(addprefix output/,\
   eadk_lib.o \
+  crt_stubs.o \
   icon.o \
   main.o \
 )
 
 CFLAGS = -std=c99
-CFLAGS += $(shell $(NWLINK) eadk-cflags)
-CFLAGS += -Os -Wall
+CFLAGS += $(shell $(NWLINK) eadk-cflags-device)
+CFLAGS += -Os -Wall -Wextra -Wvla
+CFLAGS += -Werror
 CFLAGS += -ggdb
 CFLAGS += -Isrc/lua
 LDFLAGS = -Wl,--relocatable
+LDFLAGS += $(shell $(NWLINK) eadk-ldflags-device)
+
+# Uncomment this when building the native Numworks app
 LDFLAGS += -nostartfiles
-LDFLAGS += --specs=nosys.specs
-# LDFLAGS += --specs=nosys.specs # Alternatively, use full-fledged newlib
+
+# LDFLAGS += --specs=nano.specs # Alternatively, use nano C lib
+LDFLAGS += --specs=nosys.specs # Alternatively, use full-fledged newlib
 
 ifeq ($(LINK_GC),1)
 CFLAGS += -fdata-sections -ffunction-sections
@@ -70,9 +82,21 @@ endif
 
 .PHONY: build
 build: output/lua.nwa
+	ls -larth output/lua.nwa
+	du -b output/lua.nwa
+	file output/lua.nwa
 
 .PHONY: check
 check: output/lua.bin
+	ls -larth output/lua.bin
+	du -b output/lua.bin
+	file output/lua.bin
+
+.PHONY: elf
+elf: output/lua.elf
+	ls -larth output/lua.elf
+	du -b output/lua.elf
+	file output/lua.elf
 
 .PHONY: run
 run: output/lua.nwa src/test.lua
