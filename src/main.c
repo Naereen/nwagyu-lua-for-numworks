@@ -4,6 +4,7 @@
 #include <lauxlib.h>
 #include <eadk.h>
 #include "eadk_lib.h"
+#include "storage.h"
 
 const char eadk_app_name[] __attribute__((section(".rodata.eadk_app_name"))) = "Lua interpreter";
 const uint32_t eadk_api_level  __attribute__((section(".rodata.eadk_api_level"))) = 0;
@@ -18,9 +19,15 @@ int main() {
   luaL_openlibs(L);
   load_eadk_lib(L);
 
+  // We read "lua.py"
+  size_t file_len = 0;
+  const char * code_from_file = extapp_fileRead("lua.py", &file_len);
+
   // TODO: decide if I want to depend on an external data or not
+  // FIXME: I wasn't able to compile the app to use on external data.
   // const char * code = eadk_external_data;
-  const char * code = "print(\"Printed from a string interpreted by Lua\")";
+
+  const char * code = (code_from_file == NULL) ? "print(\"Printed from a string interpreted by Lua\")" : (code_from_file + 1);
 
   if (luaL_loadstring(L, code) == LUA_OK) {
     if (lua_pcall(L, 0, 0, 0) == LUA_OK) {

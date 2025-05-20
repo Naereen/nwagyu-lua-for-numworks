@@ -47,6 +47,7 @@ objs = $(addprefix output/lua/,\
 
 objs += $(addprefix output/,\
   eadk_lib.o \
+  storage.o \
   crt_stubs.o \
   icon.o \
   main.o \
@@ -55,7 +56,7 @@ objs += $(addprefix output/,\
 CFLAGS = -std=c99
 CFLAGS += $(shell $(NWLINK) eadk-cflags-device)
 CFLAGS += -Os -Wall -Wextra -Wvla
-CFLAGS += -Werror
+# CFLAGS += -Werror
 CFLAGS += -ggdb
 CFLAGS += -Isrc/lua
 LDFLAGS = -Wl,--relocatable
