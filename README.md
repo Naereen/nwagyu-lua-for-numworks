@@ -1,18 +1,23 @@
-# Lua
+# Lua interpreter for the Numworks calculator
 
 [![Build](https://github.com/nwagyu/lua/actions/workflows/build.yml/badge.svg)](https://github.com/nwagyu/lua/actions/workflows/build.yml)
 
-This apps lets you run [Lua](https://www.lua.org/about.html) scripts on your [NumWorks calculator](https://www.numworks.com).
+This apps lets you run a [Lua](https://www.lua.org/about.html) script on your [NumWorks calculator](https://www.numworks.com)!
 
 ## Install the app
 
 Installing is rather easy:
-1. Download the latest `lua.nwa` file from the [Releases](https://github.com/nwagyu/lua/releases) page
-2. Head to [my.numworks.com/apps](https://my.numworks.com/apps) to send the `nwa` file on your calculator. On this page you will be able to add the Lua script you want to execute.
+1. Download the latest `lua.nwa` file from the [Releases](https://github.com/nwagyu/lua/releases) page ;
+1. This Release page is out-dated on my fork, use [this folder instead](https://perso.crans.org/besson/publis/Numworks-apps/) ;
+2. Head to [my.numworks.com/apps](https://my.numworks.com/apps) to send the `nwa` file on your calculator. On [this page](https://my.numworks.com/python/lilian-besson-1/lua) you will be able to also send a default example of a Lua script, and you can edit it yourself later on, on your calculator.
 
 ## How to use the app
 
-Just launch the app and execute your script.
+Just launch the app, and it will read and execute your script `lua.py`!
+
+This script should be located in the `lua.py` file, that you can create, edit and save **from within your Numworks!**.
+
+If you want a demo, use [this `lua.py` script](https://my.numworks.com/python/lilian-besson-1/lua), that you can install on your Numworks calculator, directly from their website (from my user space).
 
 ## Dependencies
 
