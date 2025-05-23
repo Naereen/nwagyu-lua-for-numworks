@@ -3,6 +3,7 @@
 [![Build](https://github.com/Naereen/nwagyu-lua-for-numworks/actions/workflows/build.yml/badge.svg)](https://github.com/Naereen/nwagyu-lua-for-numworks/actions/workflows/build.yml)
 
 This apps lets you run a [Lua](https://www.lua.org/about.html) script on your [NumWorks calculator](https://www.numworks.com)!
+[![Lua logo](./src/icon.png)](https://www.lua.org/about.html)
 
 ## Install the app
 
