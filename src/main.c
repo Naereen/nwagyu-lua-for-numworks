@@ -23,22 +23,21 @@ int main() {
   size_t file_len = 0;
   const char * code_from_file = extapp_fileRead("lua.py", &file_len);
 
-  // TODO: decide if I want to depend on an external data or not
-  // FIXME: I wasn't able to compile the app to use on external data.
+  // DONE: I wasn't able to compile while depending on external data, but it works if reading from a local 'lua.py' file.
   // const char * code = eadk_external_data;
 
-  const char * code = (code_from_file == NULL) ? "print(\"Printed from a string interpreted by Lua\")" : (code_from_file + 1);
+  const char * code = (code_from_file == NULL && file_len <= 0) ? "print(\"Hi from Lua interpreter! sleep(3s)\")\neadk.timing_msleep(3000)" : (code_from_file + 1);
 
   if (luaL_loadstring(L, code) == LUA_OK) {
     if (lua_pcall(L, 0, 0, 0) == LUA_OK) {
       lua_pop(L, lua_gettop(L));
     } else {
-      printf("ERR: %s\n", lua_tostring(L,-1));
-      eadk_timing_msleep(1000);
+      printf("Error from Lua:\n%s\n", lua_tostring(L,-1));
+      eadk_timing_msleep(3000);
     }
   }
 
-  eadk_timing_msleep(5000);
+  eadk_timing_msleep(3000);
   lua_close(L);
   return 0;
 }

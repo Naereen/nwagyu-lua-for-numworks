@@ -27,6 +27,13 @@ static int display_draw_string(lua_State * L) {
 static const struct luaL_Reg eadk_lib[] = {
   {"display_draw_string", display_draw_string},
   {"timing_msleep", timing_msleep},
+  {"color_black", eadk_color_black},
+  {"color_white", eadk_color_white},
+  {"color_red", eadk_color_red},
+  {"color_green", eadk_color_green},
+  {"color_blue", eadk_color_blue},
+  {"SCREEN_WIDTH", EADK_SCREEN_WIDTH},
+  {"SCREEN_HEIGHT", EADK_SCREEN_HEIGHT},
   {NULL, NULL}
 };
 
